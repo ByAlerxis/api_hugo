@@ -59,5 +59,33 @@ try {
     }
   }
 
+  productController.getId = async (req, res) => {
+    if (Connection) {
+      await connection.query(
+        "SELECT * FROM products WHERE PD_ID = "+req.params.pdid+";",
+        (err, rows) => {
+          if (err) {
+          } else {
+            res.status(200).json(rows);
+          }
+        }
+      );
+    }
+  }
+
+  productController.getLimite = async (req, res) => {
+    if (Connection) {
+      await connection.query(
+        "SELECT * FROM products ORDER BY PD_ID DESC LIMIT "+req.params.limit+";",
+        (err, rows) => {
+          if (err) {
+          } else {
+            res.status(200).json(rows);
+          }
+        }
+      );
+    }
+  }
+
   module.exports = productController;
 } catch (error) {}
